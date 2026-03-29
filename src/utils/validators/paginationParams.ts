@@ -1,5 +1,5 @@
 import z from 'zod';
-import { validationMiddleware } from '@/middlewares/validation';
+import { validationMiddleware } from '../../middlewares/validation';
 
 const paginationParamsValidator = z.object({
 	page: z
@@ -25,4 +25,25 @@ export type PaginationParams = z.infer<typeof paginationParamsValidator>;
 export const zPaginationParamsValidator = validationMiddleware(
 	'query',
 	paginationParamsValidator,
+);
+
+export const cursorPaginationParamsValidator = z.object({
+	cursor: z.string().optional(),
+	limit: z
+		.string()
+		.optional()
+		.default('10')
+		.transform(Number)
+		.refine((val) => val > 0, {
+			message: 'Limit must be a positive number',
+		}),
+});
+
+export type CursorPaginationParams = z.infer<
+	typeof cursorPaginationParamsValidator
+>;
+
+export const zCursorPaginationParamsValidator = validationMiddleware(
+	'query',
+	cursorPaginationParamsValidator,
 );

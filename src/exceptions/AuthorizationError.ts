@@ -15,7 +15,7 @@ class AuthorizationError extends ClientError {
 	) {
 		super(message, {
 			type: options?.type ?? ErrorConstant.type.AUTHORIZATION_ERR,
-			statusCode: 401,
+			statusCode: 403,
 		});
 
 		this.name = 'AuthorizationError';

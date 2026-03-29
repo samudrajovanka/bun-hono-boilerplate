@@ -124,6 +124,7 @@ From `package.json`:
 | `biome:check` | Combined checks |
 | `db:generate` | Generate migrations from schema changes |
 | `db:migrate` | Apply pending migrations to the database |
+| `db:seed` | Seed the database |
 | `generate` | Interactive module generator (Plop) |
 | `generate:module:all` | Generate module with all files (non-interactive) |
 
@@ -150,7 +151,7 @@ Helper snippets:
 // Example base columns from helpers/schema.ts
 export const baseColumns = {
   ...timestamps,
-  id: uuid('id').default(sql`gen_random_uuid()`).primaryKey()
+  id: uuid('id').default(sql`gen_random_uuidv7()`).primaryKey()
 };
 ```
 

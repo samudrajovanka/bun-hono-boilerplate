@@ -1,5 +1,8 @@
 import type { Context } from 'hono';
-import type { PaginationParams } from '@/utils/validators/paginationParams';
+import type {
+	CursorPaginationParams,
+	PaginationParams,
+} from '../validators/paginationParams';
 
 export const getPaginationFromQuery = (c: Context) => {
 	// @ts-expect-error
@@ -30,4 +33,30 @@ export const generatePaginationMetaResponse = (
 
 export type PaginationMetaResponse = ReturnType<
 	typeof generatePaginationMetaResponse
+>;
+
+export const getCursorPaginationFromQuery = (c: Context) => {
+	// @ts-expect-error
+	const query = c.req.valid('query') as CursorPaginationParams;
+
+	return {
+		cursor: query.cursor,
+		limit: query.limit,
+	};
+};
+
+export type CursorPagination = ReturnType<typeof getCursorPaginationFromQuery>;
+
+export const generateCursorPaginationMetaResponse = (
+	pagination: CursorPagination,
+	nextCursor: string | null | undefined,
+) => {
+	return {
+		limit: pagination.limit,
+		nextCursor,
+	};
+};
+
+export type CursorPaginationMetaResponse = ReturnType<
+	typeof generateCursorPaginationMetaResponse
 >;

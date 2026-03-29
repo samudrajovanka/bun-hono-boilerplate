@@ -15,7 +15,7 @@ class AuthenticationError extends ClientError {
 	) {
 		super(message, {
 			type: options?.type ?? ErrorConstant.type.AUTHENTICATION_ERR,
-			statusCode: options?.statusCode ?? 403,
+			statusCode: options?.statusCode ?? 401,
 		});
 
 		this.name = 'AuthenticationError';

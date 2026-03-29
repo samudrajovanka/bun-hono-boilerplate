@@ -12,6 +12,6 @@ export const timestamps = {
 };
 
 export const baseColumns = {
-	id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
+	id: uuid('id').default(sql`uuid_generate_v7()`).primaryKey(),
 	...timestamps,
 };
