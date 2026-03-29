@@ -1,0 +1,17 @@
+import { createFactory } from 'hono/factory';
+import { successResponse } from '@/utils/helpers/response';
+import { {{pascalName}}Service } from './{{moduleName}}.service';
+
+const { createHandlers } = createFactory();
+
+export const get{{pascalName}}List = createHandlers(async (c) => {
+	const service = new {{pascalName}}Service();
+	const items = await service.getAll();
+
+	return c.json(
+		successResponse({
+			message: 'Success get list',
+			data: { {{camelName}}: items },
+		}),
+	);
+});

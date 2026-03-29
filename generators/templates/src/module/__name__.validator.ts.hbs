@@ -1,0 +1,8 @@
+import { z } from 'zod';
+import { validationMiddleware } from '@/middlewares/validation';
+
+export const create{{pascalName}}Validator = z.object({
+	name: z.string().min(1).max(255),
+});
+
+export const zCreate{{pascalName}}Validator = validationMiddleware('json', create{{pascalName}}Validator);

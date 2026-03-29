@@ -1,21 +1,13 @@
+// [IMPORT_ROUTE_START]
 import { Hono } from 'hono';
-import { cors } from 'hono/cors';
 import projectRoute from '@/modules/projects/project.route';
+
+// [IMPORT_ROUTE_END]
 
 const apiApp = new Hono().basePath('/api');
 
-const allowedOrigins = (process.env.ALLOWED_CORS_ORIGINS || '')
-	.split(',')
-	.map((origin) => origin.trim())
-	.filter(Boolean);
-
-apiApp.use(
-	cors({
-		origin: allowedOrigins,
-		credentials: true,
-	}),
-);
-
+// [ROUTE_REGISTRATION_START]
 apiApp.route('/projects', projectRoute);
+// [ROUTE_REGISTRATION_END]
 
 export default apiApp;

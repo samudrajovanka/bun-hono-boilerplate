@@ -1,0 +1,9 @@
+import { pgTable, uniqueIndex, varchar } from 'drizzle-orm/pg-core';
+import { baseColumns } from '@/utils/helpers/schema';
+
+export const {{camelName}}Table = pgTable('{{moduleName}}', {
+	...baseColumns,
+	name: varchar('name').notNull(),
+}, (table) => [
+	uniqueIndex('{{moduleName}}_name_idx').on(table.name),
+]);

@@ -124,6 +124,8 @@ From `package.json`:
 | `biome:check` | Combined checks |
 | `db:generate` | Generate migrations from schema changes |
 | `db:migrate` | Apply pending migrations to the database |
+| `generate` | Interactive module generator (Plop) |
+| `generate:module:all` | Generate module with all files (non-interactive) |
 
 ## 7. Database & Migrations (Drizzle)
 Workflow:
@@ -200,66 +202,43 @@ Usage in controller:
 const pagination = getPaginationFromQuery(c); // derived from validated query
 ```
 
-## 12. Adding a New Module
-Suppose you want a `tasks` module.
+## 12. Module Generator
+Generate a complete module with all files using Plop.js.
 
-1. Create folder: `src/modules/tasks/`.
-2. Add `task.schema.ts`:
-    ```ts
-    import { pgTable, varchar } from 'drizzle-orm/pg-core';
-    import { baseColumns } from '@/utils/helpers/schema';
+### Commands
+```sh
+# Interactive mode (select files to generate)
+bun run generate
 
-    export const tasksTable = pgTable('tasks', {
-      ...baseColumns,
-      title: varchar('title').notNull()
-    });
-    ```
-3. Re-export schema: edit `src/schemas/index.ts`:
-    ```ts
-    export * from '@/modules/projects/project.schema';
-    export * from '@/modules/tasks/task.schema';
-    ```
-4. Add validator `task.validator.ts` (Zod):
-    ```ts
-    import z from 'zod';
-    import { validationMiddleware } from '@/middlewares/validation';
+# Non-interactive mode (generates all files)
+bun run generate:module:all <name>
 
-    const payloadCreateTaskValidator = z.object({
-      title: z.string().min(1).max(255)
-    });
-    export const zPayloadCreateTaskValidator = validationMiddleware('json', payloadCreateTaskValidator);
-    export type CreateTaskPayload = z.infer<typeof payloadCreateTaskValidator>;
-    ```
-5. Add service `task.service.ts` using `db` and `tasksTable` for CRUD.
-6. Add controller `task.controller.ts` with `createFactory().createHandlers` applying validators.
-7. Add route `task.route.ts`:
-    ```ts
-    import { Hono } from 'hono';
-    import { createTask, getTasks } from './task.controller';
+# Examples
+bun run generate:module:all user
+bun run generate:module:all productCategory
+```
 
-    const taskRoute = new Hono();
+### Generated Structure
+For `bun run generate:module:all user`, creates:
+```
+src/modules/user/
+├── user.controller.ts   # getUserList handler
+├── user.route.ts        # GET / endpoint (auto-registered)
+├── user.schema.ts       # Drizzle table (auto-exported)
+├── user.service.ts     # getAll method
+├── user.validator.ts    # createUserValidator + zCreateUserValidator
+└── index.ts             # Barrel exports
+```
 
-    taskRoute.get('/', ...getTasks);
-    taskRoute.post('/', ...createTask);
+### After Generation
+Routes and schemas are auto-registered! Just generate migration:
+```sh
+bun db:generate --name=create-user-table
+bun db:migrate
+```
 
-    export default taskRoute;
-    ```
-8. Register in `src/routes/api.ts`:
-    ```ts
-    import taskRoute from '@/modules/tasks/task.route';
-
-    apiApp.route('/tasks', taskRoute);
-    ```
-9. Generate + migrate:
-    ```sh
-    bun db:generate --name=create-tasks-table
-    bun db:migrate
-    ```
-10. Run server:
-    ```sh
-    bun dev
-    ```
-11. Test endpoints: `GET /api/tasks`, `POST /api/tasks`.
+## 12b. Manual Module Creation (Alternative)
+If you prefer to create modules manually, see the pattern in `src/modules/projects/`.
 
 ## 13. Logging
 `logMiddleware` logs each request: timestamp, IP, method, path, status, duration, user agent, referer. Replace or extend with structured logging (e.g., pino) as needed.
@@ -355,6 +334,8 @@ bun biome:check
 # Generate & apply migrations
 bun db:generate
 bun db:migrate
+# Generate new module
+bun run generate:module:all <name>
 ```
 
 ---

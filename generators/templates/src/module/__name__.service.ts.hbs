@@ -1,0 +1,8 @@
+import { db } from '@/config/db';
+import { {{camelName}}Table } from './{{moduleName}}.schema';
+
+export class {{pascalName}}Service {
+	async getAll() {
+		return db.select().from({{camelName}}Table);
+	}
+}

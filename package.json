@@ -8,7 +8,12 @@
     "biome:lint": "biome lint --write",
     "biome:check": "biome check --write",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "generate": "plop",
+    "generate:module": "plop module",
+    "generate:module:all": "plop module-all",
+    "generate:route": "plop register-route",
+    "generate:schema": "plop add-schema"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.7.5",
@@ -22,6 +27,8 @@
     "@types/bun": "latest",
     "@types/pg": "^8.15.6",
     "drizzle-kit": "^0.31.7",
-    "lefthook": "^2.0.4"
+    "inquirer": "^9",
+    "lefthook": "^2.0.4",
+    "plop": "^4.0.5"
   }
 }

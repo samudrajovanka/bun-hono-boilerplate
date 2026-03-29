@@ -1,0 +1,8 @@
+import { Hono } from 'hono';
+import { get{{pascalName}}List } from './{{moduleName}}.controller';
+
+const {{camelName}}Route = new Hono();
+
+{{camelName}}Route.get('/', ...get{{pascalName}}List);
+
+export default {{camelName}}Route;
