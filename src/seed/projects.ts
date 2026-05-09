@@ -1,4 +1,4 @@
-import { projectsTable } from '@/modules/projects/project.schema';
+import { projectsTable } from '@/modules/project/schema';
 import { db } from '../config/db';
 
 export const seedProjects = async () => {

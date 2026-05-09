@@ -1,1 +1,2 @@
-export * from '@/modules/projects/project.schema';
+export * from '@/modules/project/schema';
+export * from '@/modules/user/schema';

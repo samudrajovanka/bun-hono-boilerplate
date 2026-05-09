@@ -12,7 +12,7 @@ const toCamelCase = (str) =>
 function appendToSchemas(answers) {
 	const { moduleName } = answers;
 	const schemasPath = 'src/schemas/index.ts';
-	const exportLine = `export * from '${PREFIX_PATH_MODULES}/${moduleName}/${moduleName}.schema';`;
+	const exportLine = `export * from '${PREFIX_PATH_MODULES}/${moduleName}/schema';`;
 
 	try {
 		const content = readFileSync(schemasPath, 'utf-8');
@@ -30,7 +30,7 @@ function appendToApiRoutes(answers) {
 	const { moduleName } = answers;
 	const camelName = toCamelCase(moduleName);
 	const apiPath = 'src/routes/api.ts';
-	const importLine = `import ${camelName}Route from '${PREFIX_PATH_MODULES}/${moduleName}/${moduleName}.route';`;
+	const importLine = `import ${camelName}Route from '${PREFIX_PATH_MODULES}/${moduleName}/route';`;
 	const routeLine = `apiApp.route('/${moduleName}', ${camelName}Route);`;
 
 	try {
@@ -89,8 +89,8 @@ export default function (plop) {
 			if (files?.includes('schema')) {
 				actions.push({
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.schema.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.schema.ts`,
+					templateFile: 'generators/templates/src/module/schema.ts.hbs',
+					path: `src/modules/${moduleName}/schema.ts`,
 					data: baseData,
 				});
 				actions.push(appendToSchemas);
@@ -99,8 +99,8 @@ export default function (plop) {
 			if (files?.includes('validator')) {
 				actions.push({
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.validator.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.validator.ts`,
+					templateFile: 'generators/templates/src/module/validator.ts.hbs',
+					path: `src/modules/${moduleName}/validator.ts`,
 					data: baseData,
 				});
 			}
@@ -108,8 +108,8 @@ export default function (plop) {
 			if (files?.includes('service')) {
 				actions.push({
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.service.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.service.ts`,
+					templateFile: 'generators/templates/src/module/service.ts.hbs',
+					path: `src/modules/${moduleName}/service.ts`,
 					data: baseData,
 				});
 			}
@@ -117,8 +117,8 @@ export default function (plop) {
 			if (files?.includes('controller')) {
 				actions.push({
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.controller.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.controller.ts`,
+					templateFile: 'generators/templates/src/module/controller.ts.hbs',
+					path: `src/modules/${moduleName}/controller.ts`,
 					data: baseData,
 				});
 			}
@@ -126,8 +126,8 @@ export default function (plop) {
 			if (files?.includes('route')) {
 				actions.push({
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.route.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.route.ts`,
+					templateFile: 'generators/templates/src/module/route.ts.hbs',
+					path: `src/modules/${moduleName}/route.ts`,
 					data: baseData,
 				});
 				actions.push(appendToApiRoutes);
@@ -180,32 +180,32 @@ export default function (plop) {
 			return [
 				{
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.schema.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.schema.ts`,
+					templateFile: 'generators/templates/src/module/schema.ts.hbs',
+					path: `src/modules/${moduleName}/schema.ts`,
 					data: baseData,
 				},
 				{
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.validator.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.validator.ts`,
+					templateFile: 'generators/templates/src/module/validator.ts.hbs',
+					path: `src/modules/${moduleName}/validator.ts`,
 					data: baseData,
 				},
 				{
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.service.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.service.ts`,
+					templateFile: 'generators/templates/src/module/service.ts.hbs',
+					path: `src/modules/${moduleName}/service.ts`,
 					data: baseData,
 				},
 				{
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.controller.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.controller.ts`,
+					templateFile: 'generators/templates/src/module/controller.ts.hbs',
+					path: `src/modules/${moduleName}/controller.ts`,
 					data: baseData,
 				},
 				{
 					type: 'add',
-					templateFile: 'generators/templates/src/module/__name__.route.ts.hbs',
-					path: `src/modules/${moduleName}/${moduleName}.route.ts`,
+					templateFile: 'generators/templates/src/module/route.ts.hbs',
+					path: `src/modules/${moduleName}/route.ts`,
 					data: baseData,
 				},
 				{

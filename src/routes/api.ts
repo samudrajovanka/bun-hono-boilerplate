@@ -1,6 +1,6 @@
 // [IMPORT_ROUTE_START]
 import { Hono } from 'hono';
-import projectRoute from '@/modules/projects/project.route';
+import projectRoute from '@/modules/project/route';
 
 // [IMPORT_ROUTE_END]
 

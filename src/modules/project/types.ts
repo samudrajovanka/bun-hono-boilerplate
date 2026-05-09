@@ -1,6 +1,6 @@
 import type z from 'zod';
 import type { Pagination } from '@/utils/helpers/pagination';
-import type { payloadCreateProjectValidator } from './project.validator';
+import type { payloadCreateProjectValidator } from './validator';
 
 export type GetProjectsParams = {
 	pagination: Pagination;

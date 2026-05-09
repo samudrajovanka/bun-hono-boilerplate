@@ -2,9 +2,9 @@ import { createFactory } from 'hono/factory';
 import { getPaginationFromQuery } from '@/utils/helpers/pagination';
 import { successResponse } from '@/utils/helpers/response';
 import { zPaginationParamsValidator } from '@/utils/validators/paginationParams';
-import ProjectService from './project.service';
-import { zPayloadCreateProjectValidator } from './project.validator';
+import ProjectService from './service';
 import type { CreateProjectPayload } from './types';
+import { zPayloadCreateProjectValidator } from './validator';
 
 const { createHandlers } = createFactory();
 

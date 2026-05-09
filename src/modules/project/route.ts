@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { createProject, getProjects } from './project.controller';
+import { createProject, getProjects } from './controller';
 
 const projectRoute = new Hono();
 

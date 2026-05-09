@@ -2,7 +2,7 @@ import { desc } from 'drizzle-orm';
 import { db } from '@/config/db';
 import { catchErrorDrizzle } from '@/utils/helpers/globals';
 import { generatePaginationMetaResponse } from '@/utils/helpers/pagination';
-import { projectsTable } from './project.schema';
+import { projectsTable } from './schema';
 import type { CreateProjectPayload, GetProjectsParams } from './types';
 
 export default class ProjectService {
